@@ -1,0 +1,14 @@
+用途：
+	构造tcp特殊报文
+注意:
+	scapy每发送一次报文，都会带一个RST报文，这给tcp流造成困扰
+	解决方法：在client加防火墙！！
+	          iptables -A OUTPUT -p tcp --tcp-flags RST RST -s 192.168.2.11 -j DROP
+
+具体case:
+    【scapy_http_get.py】正常tcp流，可以建立连接
+	【scapy_proxy_protocol_case32.py】开启proxy protocol时，后面payload,先于前面payload到达
+	【scapy_proxy_protocol_case33.py】第一个payload先于三次握手最后一个ack到达
+	【scapy_proxy_protocol_case34.py】前面payload丢包，只收到第二个payload
+	【scapy_proxy_protocol_case35.py】第一个ack报文丢掉
+	
